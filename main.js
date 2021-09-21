@@ -12,6 +12,19 @@ function toSentenceCase(str) {
     return str.join(' ');
 }
 
+function downloadFile(filename, text) {
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
 document.getElementById("upper-case").addEventListener("click", function () {
     if (document.getElementById("text-input").value !== '') {
         const x = document.getElementById("text-input").value;
@@ -34,5 +47,12 @@ document.getElementById("sentence-case").addEventListener("click", function () {
     if (document.getElementById("text-input").value !== '') {
         const x = document.getElementById("text-input").value;
         document.getElementById("text-input").value = toSentenceCase(x);
+    }
+})
+
+document.getElementById("save-text-file").addEventListener("click", function () {
+    if (document.getElementById("text-input").value !== '') {
+        const x = document.getElementById("text-input").value;
+        downloadFile("cases.txt", x);
     }
 })
